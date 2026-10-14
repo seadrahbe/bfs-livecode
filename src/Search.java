@@ -96,12 +96,19 @@ public class Search {
 
     public static Location ratLocation(char[][] maze) {
         Location location = null;
-        for(int c = 0; r < maze.length; r++) {
+        for(int r = 0; r < maze.length; r++) {
             for(int c = 0; c < maze[r].length; c++)  { 
                 if(maze[r][c] == 'R') {
-
+                    if (location == null) {
+                        location = new Location(r, c);
+                    } else {
+                        throw new CrowdedMazeException();
+                    }
                 }
             }
         }
+        if (location == null) throw new EscapedRatException();
+    
+        return location;
     }
 }
